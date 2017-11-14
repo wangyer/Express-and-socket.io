@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript" src="/javascripts/socket.io.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <button onclick="test()">按钮</button>
+    <ul id="ultext"></ul>
+    <script>
+    	var socket = io();
+    	function test() {
+    		socket.emit('click1');
+    	}
+
+    	//click2事件
+    	socket.on('click2', function(data){
+    		var htmldatas = data.datas;
+    		var html = '';
+    		for(var i = 0; i < htmldatas.length; i++) {
+    			var htmldata = htmldatas[i];
+    			html += '<li>' + htmldata + '</li>';
+    		}
+    		document.getElementById('ultext').innerHTML = html;
+    	})
+    </script>
+  </body>
+</html>
